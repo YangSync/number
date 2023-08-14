@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="utf8">
+    <title>抽籤器</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3636257488152258"
+        crossorigin="anonymous"></script>
+    <link rel="icon" href="./favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="線上抽籤程式，學校老師的最愛">
+</head>
+
+<body>
+    <div>
+        <h1 id="title">抽籤器</h1>
+        <br>
+        <!--<input id="one"></input>-->
+        <div>
+            <span id="s1">1 ~ </span>
+            <input id="two"></input>
+            &nbsp;
+            <span>抽</span>
+            <input id="num"></input>
+            <span>個</span>
+        </div>
+        <br>
+
+        <input type="checkbox" checked="checked" id="no_re" class="checkbox">不重複
+        <input type="checkbox" id="remember" class="checkbox">記住
+
+        <button id="button">生成</button>
+        <br>
+        <div id="res"></div>
+    </div>
+
+    <script>
+        function getRandom(max) {
+            return Math.floor(Math.random() * max) + 1;
+        }
+        const button = document.getElementById('button');
+        const num = document.getElementById('num');
+        //const one = document.getElementById('one');
+        const two = document.getElementById('two');
+        let rr, i, j;
+        button.addEventListener('click', () => {
+            //let min = one.value;
+            let max = two.value;
+            if (remember.checked == false) {
+                res.innerHTML = '';
+            }
+            if (no_re.checked == true) {
+                if (Number(num.value) > Number(two.value)) {
+                    alert('錯誤，請重新輸入');
+                    return;
+                }
+            }
+
+            if (num.value == '' || num.value == 1) {
+                rr = getRandom(max);
+                var c = document.createElement('div');
+                var ct = document.createTextNode(rr);
+                c.appendChild(ct);
+                res.appendChild(c);
+                console.log(rr);
+            }
+            else {
+                let used = [];
+                for (i = 0; i < Number(num.value); i++) {
+                    rr = getRandom(max);
+                    if (no_re.checked == true) {
+                        while (used.includes(rr)) {
+                            rr = getRandom(max)
+                        }
+                        used.push(rr);
+                    }
+                    var c = document.createElement('div');
+                    var ct = document.createTextNode(rr);
+                    c.appendChild(ct);
+                    res.appendChild(c);
+                    console.log(rr);
+                }
+            }
+        });
+
+    </script>
+
+    <style>
+        #title {
+            font-size: 100px;
+        }
+
+        #two {
+            font-size: 30px;
+            width: 55px;
+        }
+
+        #s1 {
+            font-size: 30px;
+        }
+
+        #res {
+            font-size: 60px;
+
+        }
+
+        #num {
+            width: 40px;
+            font-size: 30px;
+
+        }
+
+        span {
+            font-size: 30px;
+
+        }
+
+        #button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 30px;
+            color: rgb(38, 51, 238);
+            background-color: #66d46a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #button:hover {
+            background-color: #338f37;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: bisque;
+            font-size: 145%;
+        }
+    </style>
+</body>
+
+</html>
